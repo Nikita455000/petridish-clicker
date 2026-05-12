@@ -1,14 +1,17 @@
 const express = require("express");
+const path = require("path");
+
 const app = express();
 
-app.use(express.static("webapp"));
+// 🔥 правильный путь
+app.use(express.static(path.join(__dirname, "webapp")));
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/webapp/index.html");
+  res.sendFile(path.join(__dirname, "webapp", "index.html"));
 });
 
-// 🔥 ВАЖНО ДЛЯ RENDER
-const PORT = process.env.PORT;
+// 🔥 безопасный порт (ВАЖНО)
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log("Server started on port", PORT);
