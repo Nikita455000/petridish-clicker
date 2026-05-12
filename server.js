@@ -1,12 +1,22 @@
-const http = require("http");
+const { Telegraf } = require("telegraf");
 
-const PORT = process.env.PORT || 10000;
+const bot = new Telegraf(process.env.BOT_TOKEN);
 
-const server = http.createServer((req, res) => {
-  res.writeHead(200, { "Content-Type": "text/plain" });
-  res.end("OK WORKING");
+bot.start((ctx) => {
+  ctx.reply("🧬 PetriDish Clicker", {
+    reply_markup: {
+      inline_keyboard: [
+        [
+          {
+            text: "🎮 PLAY",
+            web_app: { url: "https://YOUR-RENDER-URL.onrender.com" }
+          }
+        ]
+      ]
+    }
+  });
 });
 
-server.listen(PORT, "0.0.0.0", () => {
-  console.log("Server running on", PORT);
-});
+bot.launch();
+
+console.log("🤖 Bot started");
